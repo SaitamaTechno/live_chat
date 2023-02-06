@@ -1,4 +1,4 @@
-# live_chat
+# Flask-Socket.io Live Chatting Website
 <p>You can check the result: https://animechat.stcloud.site/</p>
 <div>%90 of the code belongs to chatGPT</div>
 <div> Live chatting website using socket.io and flask. </div>
