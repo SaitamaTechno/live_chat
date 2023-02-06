@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <title>Live Chat</title>
+    <style>
+      body {
+        background-color: #333;
+        color: #fff;
+      }
+      .video-container {
+        float: left;
+        width: 50%;
+        height: 534px;
+        overflow: hidden;
+      }
+      .chat-container {
+        float: right;
+        width: 50%;
+        height: 350px;
+        overflow: hidden;
+      }
+      .chat-messages {
+        max-height: 300px;
+        overflow: auto;
+        border: 1px solid gray;
+        padding: 10px;
+        margin-bottom: 10px;
+        float: right;
+      }
+      .chat-message {
+        margin-bottom: 5px;
+      }
+      input[type="text"] {
+        width: 10%;
+        padding: 10px;
+        margin-left: 5px;
+        margin-bottom: 10px;
+        float: right;
+      }
+      button[type="submit"] {
+        width: 5%;
+        padding: 10px;
+        margin-left: 5px;
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Youtube: Saitama Techno</h1>
+    <div class="video-container">
+      <iframe width="700" height="400" src="https://www.youtube.com/embed/WDXPJWIgX-o" title="anime lofi hip hop radio - 24/7 chill lofi remixes of anime" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    <div class="chat-container">
+      <div class="chat-messages">
+        <div id="messages"></div>
+      </div>
+      
+    </div>
+    <form>
+      <button type="submit">Send</button>
+      <input type="text" id="message" autocomplete="off">
+      <input type="text" id="username" autocomplete="off" placeholder="Enter your name">
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script>
+      var socket = io();
+      document.querySelector("form").onsubmit = function(event) {
+        event.preventDefault();
+        var message = document.getElementById("message").value;
+        var username = document.getElementById("username").value;
+        socket.emit("message sent", {"message": message, "username": username});
+        document.getElementById("message").value = "";
+      };
+      socket.on("new message", function(data) {
+        var messagesDiv = document.getElementById("messages");
+        var newMessage = document.createElement("div");
+        newMessage.innerHTML = data.username + ": " + data.message;
+        newMessage.classList.add("chat-message");
+        messagesDiv.appendChild(newMessage);
+        messagesDiv.scrollTop = messagesDiv.scrollIntoView(false);
+      });
+    </script>
+  </body>
+</html>
