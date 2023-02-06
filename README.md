@@ -1,4 +1,5 @@
 # live_chat
+<div>%90 of the code belongs to chatGPT</div>
 <div> Live chatting website using socket.io and flask. </div>
 <div> If you face a problem try using older versions of socketio and flask app etc.</div>
 <p> These versions worked for me:</p>
